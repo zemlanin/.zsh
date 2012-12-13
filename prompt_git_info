@@ -1,0 +1,20 @@
+if [ -n "$__CURRENT_GIT_BRANCH" ]; then
+    local s=""
+    case "$__CURRENT_GIT_BRANCH_STATUS" in
+        ahead)
+        s="%{$bg[blue]%}↑"
+        ;;
+        diverged)
+        s="%{$bg[green]%}↕"
+        ;;
+        behind)
+        s="%{$bg[yellow]%}↓"
+        ;;
+    esac
+    if [ -n "$__CURRENT_GIT_BRANCH_IS_DIRTY" ]; then
+        s="%{$bg[red]%}⚡"
+    fi
+    s+="%{$fg_bold[white]%}"
+ 
+    printf " %s%s%s" $s "$__CURRENT_GIT_BRANCH" "%{$reset_color%}"
+fi
