@@ -1,10 +1,14 @@
 autoload -U colors && colors
 
 # Set the prompt.
+# current directory
 PROMPT='%{$bg[yellow]%}%{$fg[black]%}%B%~%b%{$reset_color%}'
+# git branch
 PROMPT+='$(prompt_git_info)'
+# background jobs
 PROMPT+='%(1j. %{$bg[white]%}%{$fg[gray]%}%j%{$reset_color%}.) '
 
+# differentiate hosts by color
 RPROMPT="%{$bg[magenta]%}"
 case $(hostname) in
     nearth)
@@ -12,6 +16,7 @@ case $(hostname) in
     hulk)
         RPROMPT="%{$bg[blue]%}";;
 esac
+# active username
 RPROMPT+="%{$fg_bold[white]%}%n%{$reset_color%}"
 
 ###### colorful ls #######
@@ -22,6 +27,7 @@ else
   alias ls='ls -F'
 fi
 
+# a little dangerous staff
 # TMUX
 #if which tmux 2>&1 >/dev/null; then
     #if not inside a tmux session, and if no session is started, start a new session
@@ -31,7 +37,7 @@ fi
 ###### aliases etc. #######
 cdpath=( . ~ ~/Dropbox /media/Mess )
 
-export EDITOR=vim
+export EDITOR=nano
 export SUBLIME=~/.sublime/sublime_text
 export BROWSER=/usr/bin/firefox
 
