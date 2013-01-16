@@ -13,6 +13,8 @@ RPROMPT="%{$bg[magenta]%}"
 case $(hostname) in
     nearth)
         RPROMPT="%{$bg[green]%}";;
+    terra)
+        RPROMPT="%{$bg[yellow]%}";;
     hulk)
         RPROMPT="%{$bg[blue]%}";;
 esac
