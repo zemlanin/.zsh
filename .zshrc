@@ -39,7 +39,7 @@ cdpath=( . ~ ~/Dropbox /media/Mess )
 
 export EDITOR=nano
 export SUBLIME=~/.sublime/sublime_text
-export BROWSER=/usr/bin/firefox
+export BROWSER=/usr/bin/google-chrome
 
 # Set up auto extension stuff
 alias -s html=$BROWSER
@@ -51,7 +51,7 @@ alias -s ru=$BROWSER
 alias -s ua=$BROWSER
 alias -s txt=$EDITOR
 alias -s java=$EDITOR
-alias -s py=$EDITOR
+#alias -s py=$EDITOR
 alias -s asm=$EDITOR
 alias -s avi=mplayer
 alias -s mp3=mplayer
@@ -68,6 +68,8 @@ alias trare="transmission-remote"
 alias runashell="sudo pkill -KILL -u"
 alias runvnc="vncserver -depth 8 -geometry 1024x768 :5"
 alias kilvnc="vncserver -kill :5"
+alias p2="python2.7 -c"
+alias p3="python3.3 -c"
 
 # wrong keyboard layout
 alias ап=fg
