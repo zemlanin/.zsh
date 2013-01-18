@@ -38,26 +38,12 @@ fi
 
 ###### aliases etc. #######
 cdpath=( . ~ ~/Dropbox /media/Mess )
+PATH=$PATH:~/bin
+export PATH
 
 export EDITOR=nano
 export SUBLIME=~/.sublime/sublime_text
 export BROWSER=/usr/bin/google-chrome
-
-# Set up auto extension stuff
-alias -s html=$BROWSER
-alias -s org=$BROWSER
-alias -s php=$BROWSER
-alias -s com=$BROWSER
-alias -s net=$BROWSER
-alias -s ru=$BROWSER
-alias -s ua=$BROWSER
-alias -s txt=$EDITOR
-alias -s java=$EDITOR
-#alias -s py=$EDITOR
-alias -s asm=$EDITOR
-alias -s avi=mplayer
-alias -s mp3=mplayer
-alias -s mp4=mplayer
 
 # shortcuts
 alias sb=$SUBLIME
@@ -66,7 +52,6 @@ alias ci="$BROWSER --incognito"
 alias sa="sudo apt-get"
 alias mpsh="mplayer -shuffle /media/Mess/Music/*/*/*"
 alias mfnd="find -path /media/Mess -exec mplayer {} \; -name"
-alias trare="transmission-remote"
 alias runashell="sudo pkill -KILL -u"
 alias runvnc="vncserver -depth 8 -geometry 1024x768 :5"
 alias kilvnc="vncserver -kill :5"
