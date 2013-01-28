@@ -1,8 +1,9 @@
 autoload -U colors && colors
+export TERM=xterm-256color
 
 # Set the prompt.
 # current directory
-PROMPT='%{$bg[yellow]%}%{$fg[black]%}%B%~%b%{$reset_color%}'
+PROMPT='%{$bg[yellow]%}%{$fg_bold[white]%}%B%~%b%{$reset_color%}'
 # git branch
 PROMPT+='$(prompt_git_info)'
 # background jobs
@@ -10,6 +11,7 @@ PROMPT+='%(1j. %{$bg[white]%}%{$fg[gray]%}%j%{$reset_color%}.) '
 
 # differentiate hosts by color
 RPROMPT="%{$bg[magenta]%}"
+# (echo "ibase=16"; hostname | md5sum | cut -c1-2) | bc | awk '{printf "\x1b[48;5;%dm \x1b[38;5;13m &", $1}'
 case $(hostname) in
     nearth)
         RPROMPT="%{$bg[green]%}";;
@@ -20,6 +22,11 @@ case $(hostname) in
 esac
 # active username
 RPROMPT+="%{$fg_bold[white]%}%n%{$reset_color%}"
+
+###### autocompletion ######
+# github.com/zsh-users/zsh-completions
+fpath=(~/.zsh/zsh-completions/src $fpath)
+rm -f ~/.zcompdump; compinit
 
 ###### colorful ls #######
 if [[ -x "`whence -p dircolors`" ]]; then
@@ -37,42 +44,44 @@ fi
 #fi
 
 ###### aliases etc. #######
-cdpath=( . ~ ~/Dropbox /media/Mess )
+cdpath=( . ~ )
 PATH=$PATH:~/bin
 export PATH
 
-export EDITOR=nano
-export SUBLIME=~/.sublime/sublime_text
+export EDITOR=~/bin/sublime
+export SUBLIME=~/bin/sublime
 export BROWSER=/usr/bin/google-chrome
 
 # shortcuts
-alias sb=$SUBLIME
+alias e=$EDITOR
 alias cr=$BROWSER
 alias ci="$BROWSER --incognito"
-alias sa="sudo apt-get"
-alias mpsh="mplayer -shuffle /media/Mess/Music/*/*/*"
-alias mfnd="find -path /media/Mess -exec mplayer {} \; -name"
 alias runashell="sudo pkill -KILL -u"
 alias runvnc="vncserver -depth 8 -geometry 1024x768 :5"
 alias kilvnc="vncserver -kill :5"
 alias p2="python2.7 -c"
 alias p3="python3.3 -c"
 
+alias git="hub"
+
 # wrong keyboard layout
 alias ап=fg
 alias св=cd
-alias лы=ls
+alias ды=ls
 
 ###### history ######
-HISTFILE=~/.history
 HISTSIZE=10240 # кол-во команд, хранимых шеллом в текущей сессии
-SAVEHIST=8192 # кол-во команд, которые будут сохранены в истории
-
-setopt SHARE_HISTORY
+setopt COMPLETE_ALIASES
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_SPACE
-setopt HIST_NO_STORE
-setopt COMPLETE_ALIASES
+
+if [ $(hostname | cut -c1-1) "!=" "h" ]; then
+  HISTFILE=~/.history
+  SAVEHIST=8192 # кол-во команд, которые будут сохранены в истории
+
+  setopt SHARE_HISTORY
+  setopt HIST_NO_STORE
+fi
 
 ###### git #######
 # Allow for functions in the prompt.
@@ -88,6 +97,8 @@ typeset -ga chpwd_functions
 preexec_functions+='preexec_update_git_vars'
 precmd_functions+='precmd_update_git_vars'
 chpwd_functions+='chpwd_update_git_vars'
+
+###### hub ######
 
 ###### bindkeys ######
 bindkey "\e[A" history-beginning-search-backward
@@ -122,3 +133,6 @@ bindkey "\eOH" beginning-of-line
 bindkey "^[[1;5D" backward-word
 bindkey "^[[1;5C" forward-word
 bindkey "\e[3~" delete-char # Del
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
