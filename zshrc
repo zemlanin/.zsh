@@ -48,12 +48,12 @@ cdpath=( . ~ )
 PATH=$PATH:~/bin
 export PATH
 
-export EDITOR=~/bin/sublime
-export SUBLIME=~/bin/sublime
+export EDITOR='sublime --wait'
 export BROWSER=/usr/bin/google-chrome
 
 # shortcuts
-alias e=$EDITOR
+alias e=sublime
+alias k=tree
 alias cr=$BROWSER
 alias ci="$BROWSER --incognito"
 alias runashell="sudo pkill -KILL -u"
