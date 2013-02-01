@@ -17,6 +17,8 @@ case $(hostname) in
         RPROMPT="%{$bg[green]%}";;
     terra)
         RPROMPT="%{$bg[yellow]%}";;
+    pbody)
+        RPROMPT="%{$bg[cyan]%}";;
     hulk)
         RPROMPT="%{$bg[blue]%}";;
 esac
