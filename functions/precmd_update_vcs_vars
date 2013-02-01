@@ -1,4 +1,4 @@
-if [ -n "$__EXECUTED_GIT_COMMAND" ]; then
-    update_current_git_vars
-    unset __EXECUTED_GIT_COMMAND
+if [ -n "$__EXECUTED_VCS_COMMAND" ]; then
+    update_current_vcs_vars
+    unset __EXECUTED_VCS_COMMAND
 fi

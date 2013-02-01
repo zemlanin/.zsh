@@ -1,5 +1,8 @@
 case "$1" in 
     git*)
-    __EXECUTED_GIT_COMMAND=1
+    __EXECUTED_VCS_COMMAND=1
+    ;;
+    hg*)
+    __EXECUTED_VCS_COMMAND=1
     ;;
 esac

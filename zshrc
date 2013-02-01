@@ -5,7 +5,7 @@ export TERM=xterm-256color
 # current directory
 PROMPT='%{$bg[yellow]%}%{$fg_bold[white]%}%B%~%b%{$reset_color%}'
 # git branch
-PROMPT+='$(prompt_git_info)'
+PROMPT+='$(prompt_vcs_info)'
 # background jobs
 PROMPT+='%(1j. %{$bg[white]%}%{$fg[gray]%}%j%{$reset_color%}.) '
 
@@ -85,20 +85,18 @@ if [ $(hostname | cut -c1-1) "!=" "h" ]; then
   setopt HIST_NO_STORE
 fi
 
-###### git #######
+###### vcs #######
 # Allow for functions in the prompt.
 setopt PROMPT_SUBST
 # Autoload zsh functions.
 fpath=(~/.zsh/functions $fpath)
 autoload -U ~/.zsh/functions/*(:t)
+# Append vcs functions needed for prompt.
+preexec_functions=($preexec_functions 'preexec_update_vcs_vars')
+precmd_functions=($precmd_functions 'precmd_update_vcs_vars')
+chpwd_functions=($chpwd_functions 'chpwd_update_vcs_vars')
 # Enable auto-execution of functions.
-typeset -ga preexec_functions
-typeset -ga precmd_functions
-typeset -ga chpwd_functions
-# Append git functions needed for prompt.
-preexec_functions+='preexec_update_git_vars'
-precmd_functions+='precmd_update_git_vars'
-chpwd_functions+='chpwd_update_git_vars'
+$preexec_functions; $precmd_functions; $chpwd_functions
 
 ###### hub ######
 

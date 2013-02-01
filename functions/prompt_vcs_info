@@ -18,3 +18,15 @@ if [ -n "$__CURRENT_GIT_BRANCH" ]; then
  
     printf " %s%s%s" $s "$__CURRENT_GIT_BRANCH" "%{$reset_color%}"
 fi
+
+if [ -n "$__CURRENT_HG_BRANCH" ]; then
+    local s=""
+    if [ -n "$__CURRENT_HG_IS_TIP" ]; then
+        s="%{$bg[red]%}|"
+    else
+        s="%{$bg[green]%}'"
+    fi
+    s+="%{$fg_bold[white]%}"
+ 
+    printf " %s%s%s" $s "$__CURRENT_HG_BRANCH" "%{$reset_color%}"
+fi

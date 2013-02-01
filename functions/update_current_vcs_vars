@@ -2,6 +2,10 @@ unset __CURRENT_GIT_BRANCH
 unset __CURRENT_GIT_BRANCH_STATUS
 unset __CURRENT_GIT_BRANCH_IS_DIRTY
 
+unset __CURRENT_HG_BRANCH
+unset __CURRENT_HG_IS_TIP
+unset __CURRENT_HG_BRANCH_IS_DIRTY
+
 local st="$(git status 2>/dev/null)"
 if [[ -n "$st" ]]; then
     local -a arr
@@ -26,4 +30,18 @@ if [[ -n "$st" ]]; then
     if [[ ! $st =~ 'nothing to commit' ]]; then
         __CURRENT_GIT_BRANCH_IS_DIRTY='1'
     fi
+fi
+
+local hg_br="$(hg branch 2>/dev/null)"
+if [[ -n "$hg_br" ]]; then
+    __CURRENT_HG_BRANCH="$hg_br"
+
+    if [ $(hg parent --template '{node}') "!=" $(hg tip --template '{node}') ]; then
+        __CURRENT_HG_IS_TIP='1'
+    fi
+
+    # if [ $(hg status | cut -c1-1) "!=" "?" ]; then
+    #     echo 1
+    #     __CURRENT_HG_BRANCH_IS_DIRTY='1'
+    # fi
 fi
