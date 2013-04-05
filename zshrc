@@ -3,7 +3,8 @@ export TERM=xterm-256color
 
 # Set the prompt.
 # current directory
-PROMPT='%{$bg[yellow]%}%{$fg_bold[white]%}%B%~%b%{$reset_color%}'
+# emoji in ubuntu: https://gist.github.com/zemlanin/5321821
+PROMPT='%{$bg[yellow]%}%{$fg_bold[white]%}%B%~%b%{$reset_color%} 🍔 '
 # git branch
 PROMPT+='$(prompt_vcs_info)'
 # background jobs
@@ -50,19 +51,38 @@ cdpath=( . ~ )
 PATH=$PATH:~/bin
 export PATH
 
-export EDITOR='sublime --wait'
-export BROWSER=/usr/bin/google-chrome
+export EDITOR='sublime-text --wait'
+export BROWSER=chromium-browser
 
 # shortcuts
-alias e=sublime
+__p(){
+  # __p 2+4 4.0/3 _0+_1
+  # output: 
+  #   0> 6
+  #   1> 1.3333333333333333
+  #   2> 7.333333333333333
+
+  local -a args
+  local i
+  local index=0
+  for i in "$@"; do
+    args+="_$index=eval('$i'); print('$index>', _$index);"
+    let "index+=1"
+  done
+  command python3 -c "$args"
+}
+alias p="noglob __p"
+
+alias e=sublime-text
 alias k=tree
+alias g=grep
 alias cr=$BROWSER
 alias ci="$BROWSER --incognito"
 alias runashell="sudo pkill -KILL -u"
 alias runvnc="vncserver -depth 8 -geometry 1024x768 :5"
 alias kilvnc="vncserver -kill :5"
-alias p2="python2.7 -c"
-alias p3="python3.3 -c"
+alias p2="python2"
+alias p3="python3"
 
 alias git="hub"
 
