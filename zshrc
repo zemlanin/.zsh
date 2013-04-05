@@ -56,7 +56,7 @@ export BROWSER=chromium-browser
 
 # shortcuts
 __p(){
-  local -a args
+  local args
   local i
   local index=0
   for i in "$@"; do
