@@ -56,12 +56,6 @@ export BROWSER=chromium-browser
 
 # shortcuts
 __p(){
-  # __p 2+4 4.0/3 _0+_1
-  # output: 
-  #   0> 6
-  #   1> 1.3333333333333333
-  #   2> 7.333333333333333
-
   local -a args
   local i
   local index=0
@@ -72,6 +66,11 @@ __p(){
   command python3 -c "$args"
 }
 alias p="noglob __p"
+  # p 2+4 4.0/3 _0+_1
+  # output: 
+  #   0> 6
+  #   1> 1.3333333333333333
+  #   2> 7.333333333333333
 
 alias e=sublime-text
 alias k=tree
