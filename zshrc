@@ -11,20 +11,13 @@ PROMPT+='$(prompt_vcs_info)'
 PROMPT+='%(1j. %{$bg[white]%}%{$fg[gray]%}%j%{$reset_color%}.) '
 
 # differentiate hosts by color
-RPROMPT="%{$bg[magenta]%}"
-# (echo "ibase=16"; hostname | md5sum | cut -c1-2) | bc | awk '{printf "\x1b[48;5;%dm \x1b[38;5;13m &", $1}'
-case $(hostname) in
-    nearth)
-        RPROMPT="%{$bg[green]%}";;
-    terra)
-        RPROMPT="%{$bg[yellow]%}";;
-    pbody)
-        RPROMPT="%{$bg[cyan]%}";;
-    hulk)
-        RPROMPT="%{$bg[blue]%}";;
-esac
-# active username
-RPROMPT+="%{$fg_bold[white]%}%n%{$reset_color%}"
+_colorcode=$(
+  (
+    echo "ibase=16"; hostname | md5sum | cut -c1-2 | tr "[:lower:]" "[:upper:]"
+  ) | bc | awk '{printf "[48;5;%dm", $1}'
+)
+
+RPROMPT='%{$_colorcode%}%n%{$reset_color%}'
 
 ###### autocompletion ######
 # github.com/zsh-users/zsh-completions
@@ -60,7 +53,7 @@ __p(){
   local i
   local index=0
   for i in "$@"; do
-    args+="_$index=eval('$i'); print('$index>', _$index);"
+    args+="_$index=eval('$i'); print('\t_$index>', _$index);"
     let "index+=1"
   done
   command python3 -c "$args"
@@ -68,9 +61,9 @@ __p(){
 alias p="noglob __p"
   # p 2+4 4.0/3 _0+_1
   # output: 
-  #   0> 6
-  #   1> 1.3333333333333333
-  #   2> 7.333333333333333
+  #   _0> 6
+  #   _1> 1.3333333333333333
+  #   _2> 7.333333333333333
 
 alias e=sublime-text
 alias k=tree
