@@ -3,27 +3,21 @@ export TERM=xterm-256color
 
 # Set the prompt.
 # current directory
-PROMPT='%{$bg[yellow]%}%{$fg_bold[white]%}%B%~%b%{$reset_color%}'
+# emoji in ubuntu: https://gist.github.com/zemlanin/5321821
+PROMPT='%{$bg[yellow]%}%{$fg_bold[white]%}%B%~%b%{$reset_color%} 🍔 '
 # git branch
 PROMPT+='$(prompt_vcs_info)'
 # background jobs
 PROMPT+='%(1j. %{$bg[white]%}%{$fg[gray]%}%j%{$reset_color%}.) '
 
 # differentiate hosts by color
-RPROMPT="%{$bg[magenta]%}"
-# (echo "ibase=16"; hostname | md5sum | cut -c1-2) | bc | awk '{printf "\x1b[48;5;%dm \x1b[38;5;13m &", $1}'
-case $(hostname) in
-    nearth)
-        RPROMPT="%{$bg[green]%}";;
-    terra)
-        RPROMPT="%{$bg[yellow]%}";;
-    pbody)
-        RPROMPT="%{$bg[cyan]%}";;
-    hulk)
-        RPROMPT="%{$bg[blue]%}";;
-esac
-# active username
-RPROMPT+="%{$fg_bold[white]%}%n%{$reset_color%}"
+_colorcode=$(
+  (
+    echo "ibase=16"; hostname | md5sum | cut -c1-2 | tr "[:lower:]" "[:upper:]"
+  ) | bc | awk '{printf "[48;5;%dm", $1}'
+)
+
+RPROMPT='%{$_colorcode%}%n%{$reset_color%}'
 
 ###### autocompletion ######
 # github.com/zsh-users/zsh-completions
@@ -50,19 +44,37 @@ cdpath=( . ~ )
 PATH=$PATH:~/bin
 export PATH
 
-export EDITOR='sublime --wait'
-export BROWSER=/usr/bin/google-chrome
+export EDITOR='sublime-text --wait'
+export BROWSER=chromium-browser
 
 # shortcuts
-alias e=sublime
+__p(){
+  local args
+  local i
+  local index=0
+  for i in "$@"; do
+    args+="_$index=eval('$i'); print('\t_$index>', _$index);"
+    let "index+=1"
+  done
+  command python3 -c "$args"
+}
+alias p="noglob __p"
+  # p 2+4 4.0/3 _0+_1
+  # output: 
+  #   _0> 6
+  #   _1> 1.3333333333333333
+  #   _2> 7.333333333333333
+
+alias e=sublime-text
 alias k=tree
+alias g=grep
 alias cr=$BROWSER
 alias ci="$BROWSER --incognito"
 alias runashell="sudo pkill -KILL -u"
 alias runvnc="vncserver -depth 8 -geometry 1024x768 :5"
 alias kilvnc="vncserver -kill :5"
-alias p2="python2.7 -c"
-alias p3="python3.3 -c"
+alias p2="python2"
+alias p3="python3"
 
 alias git="hub"
 
