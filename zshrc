@@ -14,7 +14,13 @@ PROMPT+='%(1j. %{$bg[white]%}%{$fg[gray]%}%j%{$reset_color%}.) '
 _colorcode=$(
   (
     echo "ibase=16"; hostname | md5sum | cut -c1-2 | tr "[:lower:]" "[:upper:]"
-  ) | bc | awk '{printf "[48;5;%dm", $1}'
+  ) | bc | awk '{printf "[48;5;%dm", $1}' # background
+)
+
+_colorcode+=$(
+  (
+    echo "ibase=16"; hostname | md5sum | cut -c3-4 | tr "[:lower:]" "[:upper:]"
+  ) | bc | awk '{printf "[38;5;%dm", $1}' # foreground
 )
 
 RPROMPT='%{$_colorcode%}%n%{$reset_color%}'
