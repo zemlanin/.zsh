@@ -17,7 +17,7 @@ __colorcode=$(
   ) | bc | awk '{printf "[48;5;%dm", $1}' # background
 )
 
-_colorcode+=$(
+__colorcode+=$(
   (
     echo "ibase=16"; hostname | md5sum | cut -c3-4 | tr "[:lower:]" "[:upper:]"
   ) | bc | awk '{printf "[38;5;%dm", $1}' # foreground
