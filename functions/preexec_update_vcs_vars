@@ -1,8 +1,1 @@
-case "$1" in 
-    git*)
-    __EXECUTED_VCS_COMMAND=1
-    ;;
-    hg*)
-    __EXECUTED_VCS_COMMAND=1
-    ;;
-esac
+__EXECUTED_VCS_COMMAND=1

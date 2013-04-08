@@ -21,10 +21,10 @@ fi
 
 if [ -n "$__CURRENT_HG_BRANCH" ]; then
     local s=""
-    if [ -n "$__CURRENT_HG_IS_TIP" ]; then
-        s="%{$bg[red]%}|"
+    if [ -n "$__CURRENT_HG_BRANCH_IS_DIRTY" ]; then
+        s="%{$bg[red]%}"
     else
-        s="%{$bg[green]%}'"
+        s="%{$bg[green]%}"
     fi
     s+="%{$fg_bold[white]%}"
  

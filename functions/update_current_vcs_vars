@@ -32,16 +32,15 @@ if [[ -n "$st" ]]; then
     fi
 fi
 
-local hg_br="$(hg branch 2>/dev/null)"
+local hg_br="$(hg id -nb 2>/dev/null)"
 if [[ -n "$hg_br" ]]; then
-    __CURRENT_HG_BRANCH="$hg_br"
+    __CURRENT_HG_BRANCH="$hg_br[(w)2]"
 
-    if [ $(hg parent --template '{node}') "!=" $(hg tip --template '{node}') ]; then
-        __CURRENT_HG_IS_TIP='1'
+    if [ "$hg_br[(w)1]" "!=" $(hg id --debug -i -r tip) ]; then
+        __CURRENT_HG_IS_TIP=1
     fi
 
-    # if [ $(hg status | cut -c1-1) "!=" "?" ]; then
-    #     echo 1
-    #     __CURRENT_HG_BRANCH_IS_DIRTY='1'
-    # fi
+    if [[ -n "$(hg status -q)" ]]; then
+        __CURRENT_HG_BRANCH_IS_DIRTY=1
+    fi
 fi
