@@ -11,13 +11,13 @@ PROMPT+='$(prompt_vcs_info)'
 PROMPT+='%(1j. %{$bg[white]%}%{$fg[gray]%}%j%{$reset_color%}.) '
 
 # differentiate hosts by color
-_colorcode=$(
+__colorcode=$(
   (
     echo "ibase=16"; hostname | md5sum | cut -c1-2 | tr "[:lower:]" "[:upper:]"
   ) | bc | awk '{printf "[48;5;%dm", $1}'
 )
 
-RPROMPT='%{$_colorcode%}%n%{$reset_color%}'
+RPROMPT='%{$__colorcode%}%n%{$reset_color%}'
 
 ###### autocompletion ######
 # github.com/zsh-users/zsh-completions
