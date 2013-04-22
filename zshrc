@@ -71,6 +71,45 @@ alias p="noglob __p"
   #   _1> 1.3333333333333333
   #   _2> 7.333333333333333
 
+__pushover(){
+
+  DEVICE=""
+  MESSAGE=""
+  while getopts ":d:m:" OPTION
+  do
+    case $OPTION in
+      d)
+        DEVICE=$OPTARG
+        ;;
+      m)
+        MESSAGE=$OPTARG
+        ;;
+    esac
+  done
+
+  if [[ -z $MESSAGE ]]
+  then
+    echo '-m option required'
+  else
+  command curl -s -F "token=$PUSHOVER_APP" \
+    -F "user=$PUSHOVER_USER" \
+    -F "message=$MESSAGE" \
+    -F "device=$DEVICE" \
+    https://api.pushover.net/1/messages.json
+  fi
+}
+
+alias push=__pushover
+  # send message to your devices via pushover.net API
+  # add next two line to .bashrc/.zshrc to use this script
+
+  # export PUSHOVER_APP="your pushover.net app token"
+  # export PUSHOVER_USER="your pushover.net user key"
+
+  # OPTIONS:
+  #    -m      Message (required)
+  #    -d      Device name (send to all devices if empty)
+
 alias e=sublime-text
 alias k=tree
 alias g=grep
