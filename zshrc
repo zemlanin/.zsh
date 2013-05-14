@@ -110,9 +110,9 @@ alias push=__pushover
   #    -m      Message (required)
   #    -d      Device name (send to all devices if empty)
 
-alias e=sublime-text
+alias e=sublime
 alias k=tree
-alias g=grep
+alias -g g=grep
 alias cr=$BROWSER
 alias ci="$BROWSER --incognito"
 alias runashell="sudo pkill -KILL -u"
