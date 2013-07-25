@@ -2,31 +2,33 @@ if [ -n "$__CURRENT_GIT_BRANCH" ]; then
     local s=""
     case "$__CURRENT_GIT_BRANCH_STATUS" in
         ahead)
-        s="%{$bg[blue]%}↑"
+        s="%{$fg_bold[blue]%}↑"
         ;;
         diverged)
-        s="%{$bg[green]%}↕"
+        s="%{$fg_bold[green]%}↕"
         ;;
         behind)
-        s="%{$bg[yellow]%}↓"
+        s="%{$fg_bold[yellow]%}↓"
         ;;
     esac
     if [ -n "$__CURRENT_GIT_BRANCH_IS_DIRTY" ]; then
-        s="%{$bg[red]%}⚡"
+        s="%{$fg_bold[red]%}⚡"
     fi
-    s+="%{$fg_bold[white]%}"
  
-    printf " %s%s%s" $s "$__CURRENT_GIT_BRANCH" "%{$reset_color%}"
+    printf " %s%s%s 🍪 " $s "$__CURRENT_GIT_BRANCH" "%{$reset_color%}"
 fi
 
 if [ -n "$__CURRENT_HG_BRANCH" ]; then
+    printf " %s%s%s" "%{$fg_bold[blue]%}" $(
+        hg branches|grep -o '^1[0-9].[0-9][0-9].[0-9]'|sort -r|head -1
+    ) "%{$reset_color%}"
+
     local s=""
     if [ -n "$__CURRENT_HG_BRANCH_IS_DIRTY" ]; then
-        s="%{$bg[red]%}"
+        s="%{$fg_bold[red]%}"
     else
-        s="%{$bg[green]%}"
+        s="%{$fg_bold[green]%}"
     fi
-    s+="%{$fg_bold[white]%}"
  
-    printf " %s%s%s" $s "$__CURRENT_HG_BRANCH" "%{$reset_color%}"
+    printf " %s%s%s 🍪 " $s "$__CURRENT_HG_BRANCH" "%{$reset_color%}"
 fi
