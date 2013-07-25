@@ -50,7 +50,7 @@ cdpath=( . ~ )
 PATH=$PATH:~/bin
 export PATH
 
-export EDITOR='sublime-text --wait'
+export EDITOR='subl --wait'
 export BROWSER=chromium-browser
 
 # shortcuts
@@ -110,7 +110,7 @@ alias push=__pushover
   #    -m      Message (required)
   #    -d      Device name (send to all devices if empty)
 
-alias e=sublime
+alias e=subl
 alias k=tree
 alias -g g=grep
 alias cr=$BROWSER
