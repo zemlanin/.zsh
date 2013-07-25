@@ -191,7 +191,8 @@ bindkey "^[[1;5D" backward-word
 bindkey "^[[1;5C" forward-word
 bindkey "\e[3~" delete-char # Del
 
-# alt-s => sudo
-insert_sudo () { zle beginning-of-line; zle -U "sudo " }
+# alt-s => bitch,
+alias bitch,=sudo
+insert_sudo () { zle beginning-of-line; zle -U "bitch, " }
 zle -N insert-sudo insert_sudo
 bindkey "^[s" insert-sudo
