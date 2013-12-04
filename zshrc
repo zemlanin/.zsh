@@ -112,7 +112,6 @@ alias push=__pushover
 
 alias e=subl
 alias k=tree
-alias -g g=grep
 alias cr=$BROWSER
 alias ci="$BROWSER --incognito"
 alias runashell="sudo pkill -KILL -u"
