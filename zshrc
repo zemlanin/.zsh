@@ -72,30 +72,33 @@ alias p="noglob __p"
   #   _2> 7.333333333333333
 
 __pushover(){
+  local device=""
+  local message=$1
+  shift 1
 
-  DEVICE=""
-  MESSAGE=""
-  while getopts ":d:m:" OPTION
+  while getopts ":d:" OPTION
   do
     case $OPTION in
       d)
-        DEVICE=$OPTARG
-        ;;
-      m)
-        MESSAGE=$OPTARG
+        device=$OPTARG
         ;;
     esac
   done
 
-  if [[ -z $MESSAGE ]]
+  if [[ -z $device ]]
   then
-    echo '-m option required'
+    device=$PUSHOVER_DEVICE
+  fi
+
+  if [[ -z $message ]]
+  then
+    echo 'message required'
   else
-  command curl -s -F "token=$PUSHOVER_APP" \
-    -F "user=$PUSHOVER_USER" \
-    -F "message=$MESSAGE" \
-    -F "device=$DEVICE" \
-    https://api.pushover.net/1/messages.json
+    command curl -s -F "token=$PUSHOVER_APP" \
+      -F "user=$PUSHOVER_USER" \
+      -F "message=$message" \
+      -F "device=$device" \
+      https://api.pushover.net/1/messages.json
   fi
 }
 
@@ -105,10 +108,11 @@ alias push=__pushover
 
   # export PUSHOVER_APP="your pushover.net app token"
   # export PUSHOVER_USER="your pushover.net user key"
+  # export PUSHOVER_DEVICE="default device"
 
+  # USAGE: push <message> [-d=<device>]
   # OPTIONS:
-  #    -m      Message (required)
-  #    -d      Device name (send to all devices if empty)
+  #    -d      Device name (send to $PUSHOVER_DEVICE if empty)
 
 alias e=subl
 alias k=tree
