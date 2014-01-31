@@ -1,5 +1,5 @@
 autoload -U colors && colors
-export TERM=xterm-256color
+export TERM=screen-256color
 
 # Set the prompt.
 # current directory
