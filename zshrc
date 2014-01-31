@@ -124,8 +124,9 @@ alias kilvnc="vncserver -kill :5"
 alias p2="python2"
 alias p3="python3"
 
+# alias git="LANG=en_GB git"
 # https://github.com/github/hub#rake-install-from-source
-alias git="hub"
+alias git="LANG=en_GB hub"
 
 # wrong keyboard layout
 alias ап=fg
