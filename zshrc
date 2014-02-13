@@ -1,5 +1,6 @@
 autoload -U colors && colors
 export TERM=screen-256color
+export GREP_OPTIONS='--color=auto'
 
 # Set the prompt.
 # current directory
