@@ -26,11 +26,6 @@ __colorcode+=$(
 
 RPROMPT='%{$__colorcode%}%n%{$reset_color%}'
 
-###### autocompletion ######
-# github.com/zsh-users/zsh-completions
-fpath=(~/.zsh/zsh-completions/src $fpath)
-rm -f ~/.zcompdump; compinit
-
 ###### colorful ls #######
 if [[ -x "`whence -p dircolors`" ]]; then
   eval `dircolors`
