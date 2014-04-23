@@ -5,10 +5,10 @@ if [ -n "$__CURRENT_GIT_BRANCH" ]; then
         s="%{$fg_bold[blue]%}↑"
         ;;
         diverged)
-        s="%{$fg_bold[green]%}↕"
+        s="%{$fg_bold[yellow]%}↕"
         ;;
         behind)
-        s="%{$fg_bold[yellow]%}↓"
+        s="%{$fg_bold[green]%}↓"
         ;;
     esac
     if [ -n "$__CURRENT_GIT_BRANCH_IS_DIRTY" ]; then
