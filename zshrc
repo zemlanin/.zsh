@@ -48,8 +48,6 @@ fi
 
 ###### aliases etc. #######
 cdpath=( . ~ )
-PATH=$PATH:~/bin
-export PATH
 
 export EDITOR='subl --wait'
 export BROWSER=chromium-browser
