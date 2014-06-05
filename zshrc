@@ -2,29 +2,10 @@ autoload -U colors && colors
 export TERM=screen-256color
 export GREP_OPTIONS='--color=auto'
 
-# Set the prompt.
-# current directory
-# emoji in ubuntu: https://gist.github.com/zemlanin/5321821
-PROMPT='%{$bg[yellow]%}%{$fg_bold[white]%}%B%~%b%{$reset_color%} 🍔 '
-# git branch
-PROMPT+='$(prompt_vcs_info)'
-# background jobs
-PROMPT+='%(1j. %{$bg[white]%}%{$fg[gray]%}%j%{$reset_color%}.) '
-
-# differentiate hosts by color
-__colorcode=$(
-  (
-    echo "ibase=16"; hostname | md5sum | cut -c1-2 | tr "[:lower:]" "[:upper:]"
-  ) | bc | awk '{printf "[48;5;%dm", $1}' # background
-)
-
-__colorcode+=$(
-  (
-    echo "ibase=16"; hostname | md5sum | cut -c3-4 | tr "[:lower:]" "[:upper:]"
-  ) | bc | awk '{printf "[38;5;%dm", $1}' # foreground
-)
-
-RPROMPT='%{$__colorcode%}%n%{$reset_color%}'
+# imports
+source ./p.sh
+source ./push.sh
+source ./prompts.sh
 
 ###### colorful ls #######
 if [[ -x "`whence -p dircolors`" ]]; then
@@ -34,13 +15,6 @@ else
   alias ls='ls -F'
 fi
 
-# a little dangerous staff
-# TMUX
-#if which tmux 2>&1 >/dev/null; then
-    #if not inside a tmux session, and if no session is started, start a new session
-#    test -z "$TMUX" && (tmux attach || tmux new-session)
-#fi
-
 ###### aliases etc. #######
 cdpath=( . ~ )
 
@@ -48,66 +22,6 @@ export EDITOR='subl --wait'
 export BROWSER=chromium-browser
 
 # shortcuts
-__p(){
-  local args
-  local i
-  local index=0
-  for i in "$@"; do
-    args+="_$index=eval('$i'); print('\t_$index>', _$index);"
-    let "index+=1"
-  done
-  command python3 -c "$args"
-}
-alias p="noglob __p"
-  # p 2+4 4.0/3 _0+_1
-  # output: 
-  #   _0> 6
-  #   _1> 1.3333333333333333
-  #   _2> 7.333333333333333
-
-__pushover(){
-  local device=""
-  local message=$1
-  shift 1
-
-  while getopts ":d:" OPTION
-  do
-    case $OPTION in
-      d)
-        device=$OPTARG
-        ;;
-    esac
-  done
-
-  if [[ -z $device ]]
-  then
-    device=$PUSHOVER_DEVICE
-  fi
-
-  if [[ -z $message ]]
-  then
-    echo 'message required'
-  else
-    command curl -s -F "token=$PUSHOVER_APP" \
-      -F "user=$PUSHOVER_USER" \
-      -F "message=$message" \
-      -F "device=$device" \
-      https://api.pushover.net/1/messages.json
-  fi
-}
-
-alias push=__pushover
-  # send message to your devices via pushover.net API
-  # add next two line to .bashrc/.zshrc to use this script
-
-  # export PUSHOVER_APP="your pushover.net app token"
-  # export PUSHOVER_USER="your pushover.net user key"
-  # export PUSHOVER_DEVICE="default device"
-
-  # USAGE: push <message> [-d=<device>]
-  # OPTIONS:
-  #    -d      Device name (send to $PUSHOVER_DEVICE if empty)
-
 alias e=subl
 alias k=tree
 alias cr=$BROWSER
@@ -118,9 +32,9 @@ alias kilvnc="vncserver -kill :5"
 alias p2="python2"
 alias p3="python3"
 
-# alias git="LANG=en_GB git"
 # https://github.com/github/hub#rake-install-from-source
 alias git="LANG=en_GB hub"
+# alias git="LANG=en_GB git"
 
 # wrong keyboard layout
 alias ап=fg
@@ -153,8 +67,6 @@ precmd_functions=($precmd_functions 'precmd_update_vcs_vars')
 chpwd_functions=($chpwd_functions 'chpwd_update_vcs_vars')
 # Enable auto-execution of functions.
 $preexec_functions; $precmd_functions; $chpwd_functions
-
-###### hub ######
 
 ###### bindkeys ######
 bindkey "\e[A" history-beginning-search-backward
