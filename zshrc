@@ -3,9 +3,9 @@ export TERM=screen-256color
 export GREP_OPTIONS='--color=auto'
 
 # imports
-source ./p.sh
-source ./push.sh
-source ./prompts.sh
+source ~/.zsh/p.sh
+source ~/.zsh/push.sh
+source ~/.zsh/prompts.sh
 
 ###### colorful ls #######
 if [[ -x "`whence -p dircolors`" ]]; then
