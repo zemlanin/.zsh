@@ -32,9 +32,7 @@ alias kilvnc="vncserver -kill :5"
 alias p2="python2"
 alias p3="python3"
 
-# https://github.com/github/hub#rake-install-from-source
-alias git="LANG=en_GB hub"
-# alias git="LANG=en_GB git"
+alias git="LANG=en_GB git"
 
 # wrong keyboard layout
 alias ап=fg
@@ -47,13 +45,13 @@ setopt COMPLETE_ALIASES
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_SPACE
 
-if [ $(hostname | cut -c1-1) "!=" "h" ]; then
+#if [ $(hostname | cut -c1-1) "!=" "h" ]; then
   HISTFILE=~/.history
   SAVEHIST=8192 # кол-во команд, которые будут сохранены в истории
 
   setopt SHARE_HISTORY
   setopt HIST_NO_STORE
-fi
+#fi
 
 ###### vcs #######
 # Allow for functions in the prompt.
