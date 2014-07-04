@@ -1,4 +1,5 @@
 autoload -U colors && colors
+autoload -U compinit
 export TERM=screen-256color
 export GREP_OPTIONS='--color=auto'
 
