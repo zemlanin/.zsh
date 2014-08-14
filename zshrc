@@ -5,6 +5,7 @@ export GREP_OPTIONS='--color=auto'
 
 # imports
 source ~/.zsh/p.sh
+source ~/.zsh/yop.sh
 source ~/.zsh/push.sh
 source ~/.zsh/prompts.sh
 
