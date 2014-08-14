@@ -1,5 +1,5 @@
 # send yo to your devices via Yo API
-# add next two line to .bashrc/.zshrc to use this script
+# add next line to .bashrc/.zshrc to use this script
 
 # export YO_APP="your justyo.co app token"
 

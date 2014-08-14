@@ -1,5 +1,5 @@
 # send message to your devices via pushover.net API
-# add next two or three line to .bashrc/.zshrc to use this script
+# add next two or three lines to .bashrc/.zshrc to use this script
 
 # export PUSHOVER_APP="your pushover.net app token"
 # export PUSHOVER_USER="your pushover.net user key"
