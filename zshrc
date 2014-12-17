@@ -17,9 +17,7 @@ fi
 ###### colorful ls #######
 if [[ -x "`whence -p dircolors`" ]]; then
   eval `dircolors`
-  alias ls='ls -F --color=auto'
-else
-  alias ls='ls -F'
+  alias ls='ls --color=auto'
 fi
 
 ###### aliases etc. #######
