@@ -9,6 +9,11 @@ source ~/.zsh/yop.sh
 source ~/.zsh/push.sh
 source ~/.zsh/prompts.sh
 
+# ~/bin
+if [[ -a ~/bin ]]; then
+  PATH=$PATH:$HOME/bin
+fi
+
 ###### colorful ls #######
 if [[ -x "`whence -p dircolors`" ]]; then
   eval `dircolors`
