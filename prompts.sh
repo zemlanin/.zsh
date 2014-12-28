@@ -7,13 +7,13 @@ PROMPT+='%(1j. %{$bg[white]%}%{$fg[gray]%}%j%{$reset_color%}.) '    # background
 # https://gist.github.com/zemlanin/5325942
 __colorcode=$(
   (
-    echo "ibase=16"; hostname | md5sum | cut -c1-2 | tr "[:lower:]" "[:upper:]"
+    echo "ibase=16"; hostname -s | md5sum | cut -c1-2 | tr "[:lower:]" "[:upper:]"
   ) | bc | awk '{printf "[48;5;%dm", $1}' # background
 )
 
 __colorcode+=$(
   (
-    echo "ibase=16"; hostname | md5sum | cut -c3-4 | tr "[:lower:]" "[:upper:]"
+    echo "ibase=16"; hostname -s | md5sum | cut -c3-4 | tr "[:lower:]" "[:upper:]"
   ) | bc | awk '{printf "[38;5;%dm", $1}' # foreground
 )
 
@@ -30,7 +30,7 @@ strlen () {
 
 # show right prompt with date ONLY when command is executed
 preexec () {
-    DATE=$( date --rfc-3339=seconds )
+    DATE=$( date +%Y-%m-%dT%H:%M:%S%z )
     local len_right=$( strlen "$DATE" )
     local right_start=$(($COLUMNS - $len_right - 1))
 
