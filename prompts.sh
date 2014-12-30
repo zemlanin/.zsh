@@ -30,15 +30,14 @@ strlen () {
 
 # show right prompt with date ONLY when command is executed
 preexec () {
-    DATE=$( date +%Y-%m-%dT%H:%M:%S%z )
-    local len_right=$( strlen "$DATE" )
-    local right_start=$(($COLUMNS - $len_right - 1))
+    DATE=$(date +'%H:%M:%S %d.%m.%Y')
+    local right_start=$(($COLUMNS - 20)) #  $( strlen "$DATE" ) + 1
 
     local len_cmd=$( strlen "$@" )
     local len_prompt=$(strlen "$PROMPT" )
     local len_left=$(($len_cmd+$len_prompt))
 
-    RDATE="\033[${right_start}C ${DATE}"
+    RDATE="\033[${right_start}C${DATE}"
 
     if [ $len_left -lt $right_start ]; then
         # command does not overwrite right prompt
