@@ -3,7 +3,7 @@ unset __CURRENT_GIT_BRANCH_STATUS
 unset __CURRENT_GIT_BRANCH_IS_DIRTY
 
 unset __CURRENT_HG_BRANCH
-unset __CURRENT_HG_IS_TIP
+unset __CURRENT_HG_BRANCH_STATUS
 unset __CURRENT_HG_BRANCH_IS_DIRTY
 
 local st="$(git status 2>/dev/null)"
@@ -36,8 +36,11 @@ local hg_br="$(hg id -nb 2>/dev/null)"
 if [[ -n "$hg_br" ]]; then
     __CURRENT_HG_BRANCH="$hg_br[(w)2]"
 
-    if [ "$hg_br[(w)1]" "!=" $(hg id --debug -i -r tip) ]; then
-        __CURRENT_HG_IS_TIP=1
+    if [[ -n "$(hg qapplied)" ]]; then
+        __CURRENT_HG_BRANCH_STATUS='unfinished'
+    # replace with hg out
+    elif [[ -n "$(hg log -r 'children(parents())' --template '.')" ]]; then
+        __CURRENT_HG_BRANCH_STATUS='behind'
     fi
 
     if [[ -n "$(hg status -q)" ]]; then
