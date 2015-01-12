@@ -1,5 +1,5 @@
 # emoji in ubuntu: https://gist.github.com/zemlanin/5321821
-PROMPT='%{$bg[yellow]%}%{$fg_bold[white]%}%B%~%b%{$reset_color%} 🍔 '
+PROMPT='%{$bg[yellow]%}%{$fg_bold[white]%}%B%~%b%{$reset_color%} '
 PROMPT+='$(prompt_vcs_info)'                                        # vcs info
 PROMPT+='%(1j. %{$bg[white]%}%{$fg[gray]%}%j%{$reset_color%}.) '    # background jobs
 
