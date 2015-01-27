@@ -1,5 +1,4 @@
 autoload -U colors && colors
-autoload -U compinit
 export TERM=screen-256color
 export GREP_OPTIONS='--color=auto'
 
@@ -19,6 +18,14 @@ if [[ -x "`whence -p dircolors`" ]]; then
   eval `dircolors`
   alias ls='ls --color=auto'
 fi
+
+# completions
+fpath=(~/.zsh/completions $fpath)
+autoload -U ~/.zsh/completions/*(:t)
+autoload -U compinit
+compinit
+zstyle ':completion:*' list-colors ''
+zstyle ':completion:*' menu select=2
 
 ###### aliases etc. #######
 cdpath=( . ~ )
