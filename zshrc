@@ -46,6 +46,8 @@ alias p3="python3"
 
 alias git="LANG=en_GB git"
 
+alias boom="noglob boom"
+
 # wrong keyboard layout
 alias ап=fg
 alias св=cd
