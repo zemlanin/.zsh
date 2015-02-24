@@ -30,7 +30,9 @@ case $state in
           fi
           ;;
       *)
-        _values 'items' `boom $line[1] | awk '{print $1}' | sed -e 's/://'` 2>/dev/null && ret=0
+        if [[ "${#line[@]}" == "2" ]]; then
+          _values 'items' `boom $line[1] | awk '{print $1}' | sed -e 's/://'` 2>/dev/null && ret=0
+        fi
         ;;
     esac
     ;;
