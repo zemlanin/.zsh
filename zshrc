@@ -6,6 +6,7 @@ export GREP_OPTIONS='--color=auto'
 source ~/.zsh/p.sh
 source ~/.zsh/yop.sh
 source ~/.zsh/push.sh
+source ~/.zsh/gifmess.sh
 source ~/.zsh/prompts.sh
 
 # ~/bin
