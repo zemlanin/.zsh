@@ -24,9 +24,11 @@ gifmess(){
                 ;;
             (open)
                 if which xdg-open >/dev/null; then
-                    xargs -L1 -P2 xdg-open;
+                    xargs -L1 -P2 xdg-open
+                elif which qlmanage >/dev/null; then
+                    xargs qlmanage -p >/dev/null
                 else
-                    xargs -L1 -P2 open;
+                    cat
                 fi
                 ;;
             *)
