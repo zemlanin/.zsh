@@ -39,7 +39,7 @@ if [[ -n "$hg_br" ]]; then
     if [[ -n "$(hg qapplied)" ]]; then
         __CURRENT_HG_BRANCH_STATUS='unfinished'
     # replace with hg out
-    elif [[ -n "$(hg log -r 'children(parents())' --template '.')" ]]; then
+    elif [[ -n "$(hg log -b. -r 'children(parents())' --template '.')" ]]; then
         __CURRENT_HG_BRANCH_STATUS='behind'
     fi
 
