@@ -1,9 +1,10 @@
 # Interface for gif archive
 
-# USAGE: gifmess [url|open] query
+# USAGE: gifmess [url|open|cat] query
 
 gifmess(){
     local cmd query
+    local results=0
 
     if [ -z $1 ]; then
         echo "Usage: gifmess [url|open] query";
@@ -31,8 +32,18 @@ gifmess(){
                     cat
                 fi
                 ;;
-            *)
+            (cat)
                 cat
+                ;;
+            *)
+                while read -r line; do
+                    dropbox puburl $line | tee >(cat) | read -r last_url
+                    ((results++))
+                done
+                if [ $results -eq 1 ]; then
+                    echo $last_url | tr '\n' ' ' | xclip -sel clip;
+                    echo copied
+                fi
                 ;;
         esac
 }
