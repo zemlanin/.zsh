@@ -9,6 +9,8 @@ source ~/.zsh/push.sh
 source ~/.zsh/gifmess.sh
 source ~/.zsh/prompts.sh
 
+. ~/.zsh/z.sh
+
 # ~/bin
 if [[ -a ~/bin ]]; then
   PATH=$PATH:$HOME/bin
