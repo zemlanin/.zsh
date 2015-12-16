@@ -18,7 +18,7 @@ gifmess(){
         query=$2;
     fi
 
-    command ls -d ~/Dropbox/Public/gifmess/* | grep '\(jpe\?g\|gif\|png\)$' | grep $query \
+    command ls -d ~/Dropbox/Public/gifmess/* | grep '\(jpe\?g\|gif\|png\)$' | grep '/Dropbox/Public/gifmess/.*'$query \
         | case $cmd in
             (url)
                 xargs -L1 dropbox puburl
