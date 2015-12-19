@@ -4,7 +4,6 @@ export GREP_OPTIONS='--color=auto'
 
 # imports
 source ~/.zsh/p.sh
-source ~/.zsh/yop.sh
 source ~/.zsh/push.sh
 source ~/.zsh/gifmess.sh
 source ~/.zsh/prompts.sh
@@ -42,8 +41,6 @@ alias k=tree
 alias cr=$BROWSER
 alias ci="$BROWSER --incognito"
 alias runashell="sudo pkill -KILL -u"
-alias runvnc="vncserver -depth 8 -geometry 1024x768 :5"
-alias kilvnc="vncserver -kill :5"
 alias p2="python2"
 alias p3="python3"
 
