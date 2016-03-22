@@ -2,6 +2,8 @@
 
 # USAGE: gifmess [url|open|cat] query
 
+GIFMESS_PATH='/Dropbox/Public/gifmess/'
+
 gifmess(){
     local cmd query
     local results=0
@@ -18,10 +20,16 @@ gifmess(){
         query=$2;
     fi
 
-    command ls -d ~/Dropbox/Public/gifmess/* | grep '\(jpe\?g\|gif\|png\)$' | grep '/Dropbox/Public/gifmess/.*'$query \
+    command ls -d ~/Dropbox/Public/gifmess/* | grep '\(jpe\?g\|gif\|png\)$' | grep $GIFMESS_PATH'.*'$query \
         | case $cmd in
             (url)
-                xargs -L1 dropbox puburl
+                if which dropbox >/dev/null; then
+                    xargs -L1 dropbox puburl
+                elif [ -n GIFMESS_BASE ]; then
+                    xargs -L1 sed -e 's|.*'$GIFMESS_PATH'|'$GIFMESS_BASE'|g'
+                else
+                    echo "install dropbox-cli or set GIFMESS_BASE env variable in .zshrc"
+                fi
                 ;;
             (open)
                 if which xdg-open >/dev/null; then
@@ -37,12 +45,25 @@ gifmess(){
                 ;;
             *)
                 while read -r line; do
-                    dropbox puburl $line | tee >(cat) | read -r last_url
+                    if which dropbox >/dev/null; then
+                        dropbox puburl $line | tee >(cat) | read -r last_url
+                    elif [ -n GIFMESS_BASE ]; then
+                        echo $line | sed -e 's|.*'$GIFMESS_PATH'|'$GIFMESS_BASE'|g' | tee >(cat) | read -r last_url
+                    else
+                        echo "install dropbox-cli or set GIFMESS_BASE env variable in .zshrc"
+                    fi
                     ((results++))
                 done
                 if [ $results -eq 1 ]; then
-                    echo $last_url | tr '\n' ' ' | xclip -sel clip;
-                    echo copied
+                    if which xclip >/dev/null; then
+                        echo $last_url | tr '\n' ' ' | xclip -sel clip;
+                        echo copied
+                    elif which pbcopy >/dev/null; then
+                        echo $last_url | tr '\n' ' ' | pbcopy;
+                        echo copied
+                    else
+                        echo "install xclip or pbcopy"
+                    fi
                 fi
                 ;;
         esac
