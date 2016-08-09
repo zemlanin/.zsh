@@ -1,18 +1,22 @@
 autoload -U colors && colors
 export TERM=screen-256color
 export GREP_OPTIONS='--color=auto'
+export WORDCHARS='*?[]~&;!$%^<>'
 
 # imports
-source ~/.zsh/p.sh
-source ~/.zsh/push.sh
-source ~/.zsh/gifmess.sh
-source ~/.zsh/prompts.sh
-
+. ~/.zsh/p.sh
+. ~/.zsh/push.sh
+. ~/.zsh/gifmess.sh
+. ~/.zsh/prompts.sh
 . ~/.zsh/z.sh
 
 # ~/bin
 if [[ -a ~/bin ]]; then
   PATH=$PATH:$HOME/bin
+fi
+
+if [[ -x "`whence -p selecta`" ]]; then
+  . ~/.zsh/selecta.sh
 fi
 
 ###### colorful ls #######
@@ -33,13 +37,9 @@ zstyle ':completion:*' menu select=2
 cdpath=( . ~ )
 
 export EDITOR='subl --wait'
-export BROWSER=chromium-browser
 
 # shortcuts
 alias e=subl
-alias k=tree
-alias cr=$BROWSER
-alias ci="$BROWSER --incognito"
 alias runashell="sudo pkill -KILL -u"
 alias p2="python2"
 alias p3="python3"
