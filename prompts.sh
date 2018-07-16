@@ -5,16 +5,18 @@ PROMPT+='%(1j.%{$bg[white]%}%{$fg[black]%}%j%{$reset_color%} .)'     # backgroun
 
 # differentiate hostname by color
 # https://gist.github.com/zemlanin/5325942
+# background
 __colorcode=$(
   (
     echo "ibase=16"; hostname -s | md5sum | cut -c1-2 | tr "[:lower:]" "[:upper:]"
-  ) | bc | awk '{printf "[48;5;%dm", $1}' # background
+  ) | bc | awk '{printf "[48;5;%dm", $1}'
 )
 
+# foreground
 __colorcode+=$(
   (
     echo "ibase=16"; hostname -s | md5sum | cut -c3-4 | tr "[:lower:]" "[:upper:]"
-  ) | bc | awk '{printf "[38;5;%dm", $1}' # foreground
+  ) | bc | awk '{printf "[38;5;%dm", $1}'
 )
 
 RPROMPT='%{$__colorcode%}%n%{$reset_color%}'
